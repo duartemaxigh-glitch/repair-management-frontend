@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import RepairCard from "@/components/RepairCard";
+import { getRepairOrders } from "@/lib/api/repairOrders";
 
 export default function RepairList({ initialRepairs }) {
     const [search, setSearch] = useState("");
@@ -22,15 +23,11 @@ export default function RepairList({ initialRepairs }) {
                 params.set("status", status);
             }
 
-            const response = await fetch(
-                `http://127.0.0.1:8000/repair-orders?${params}`
-            );
-
-            if (!response.ok) {
-                throw new Error("No se pudieron obtener las reparaciones");
-            }
-
-            const data = await response.json();
+            const data = await getRepairOrders({
+                status,
+                search,
+                signal: controller.signal,
+            });
 
             setRepairs(data);
             }

@@ -1,20 +1,6 @@
 import Link from "next/link";
 import RepairList from "@/components/RepairList";
-
-async function getRepairOrders() {
-  const response = await fetch(
-    "http://127.0.0.1:8000/repair-orders",
-    {
-      cache: "no-store",
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error("No se pudieron obtener las reparaciones");
-  }
-
-  return response.json();
-}
+import { getRepairOrders } from "@/lib/api/repairOrders";
 
 export default async function Home() {
   const repairOrders = await getRepairOrders();

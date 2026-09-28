@@ -3,30 +3,12 @@ import { notFound } from "next/navigation";
 import StatusBadge from "@/components/StatusBadge";
 import RepairStatusAction from "@/components/RepairStatusAction";
 import { formatDateTime } from "@/lib/formatters";
-
-async function getRepairOrder(id) {
-    const response = await fetch(
-        `http://127.0.0.1:8000/repair-orders/${id}`,
-        {
-            cache: "no-store",
-        }
-    );
-
-    if (response.status === 404) {
-        return null;
-    }
-
-    if (!response.ok) {
-        throw new Error("No se pudo obtener la reparación");
-    }
-
-    return response.json();
-}
+import { getRepairOrders } from "@/lib/api/repairOrders";
 
 export default async function RepairDetail({ params }) {
     const { id } = await params;
 
-    const repair = await getRepairOrder(id);
+    const repair = await getRepairOrders(id);
 
     if (!repair) {
         notFound();
