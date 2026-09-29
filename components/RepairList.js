@@ -11,6 +11,7 @@ export default function RepairList({ initialRepairs }) {
     const [repairs, setRepairs] = useState(initialRepairs);
 
     useEffect(() => {
+        const controller = new AbortController();
         const timeoutId = setTimeout(() => {
             async function fetchRepairs() {
             const params = new URLSearchParams();
@@ -37,6 +38,7 @@ export default function RepairList({ initialRepairs }) {
 
     return () => {
         clearTimeout(timeoutId);
+        controller.abort();
     };
     }, [search, status]);
 
