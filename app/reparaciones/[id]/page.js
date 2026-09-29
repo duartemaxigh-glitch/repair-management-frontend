@@ -3,12 +3,12 @@ import { notFound } from "next/navigation";
 import StatusBadge from "@/components/StatusBadge";
 import RepairStatusAction from "@/components/RepairStatusAction";
 import { formatDateTime } from "@/lib/formatters";
-import { getRepairOrders } from "@/lib/api/repairOrders";
+import { getRepairOrderById  } from "@/lib/api/repairOrders";
 
 export default async function RepairDetail({ params }) {
     const { id } = await params;
 
-    const repair = await getRepairOrders(id);
+    const repair = await getRepairOrderById(id);
 
     if (!repair) {
         notFound();

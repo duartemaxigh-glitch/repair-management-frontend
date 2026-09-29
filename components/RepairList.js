@@ -14,15 +14,6 @@ export default function RepairList({ initialRepairs }) {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => {
             async function fetchRepairs() {
-            const params = new URLSearchParams();
-
-            if (search) {
-                params.set("search", search);
-            }
-
-            if (status) {
-                params.set("status", status);
-            }
 
             const data = await getRepairOrders({
                 status,
@@ -31,7 +22,7 @@ export default function RepairList({ initialRepairs }) {
             });
 
             setRepairs(data);
-            }
+        }
 
         fetchRepairs();
     }, 350);
